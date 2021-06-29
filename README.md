@@ -8,3 +8,8 @@ How to install
 How to run
 - Inside project directory
 - run `yarn start`
+
+IMPORTANT:
+
+You need to sign up for an API key in: https://openweathermap.org/api
+Request the One Call API.
