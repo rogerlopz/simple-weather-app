@@ -15,7 +15,7 @@ import {
   View,
 } from "react-native";
 
-const API_KEY = "ed1157b26b05232ed89a05c4b5fb5ee9";
+const API_KEY = "<PUT YOUR OPEN WEATHER API KEY HERE>";
 const latitude = "24.8049008";
 const longitude = "-107.4933539";
 
