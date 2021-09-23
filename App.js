@@ -120,14 +120,18 @@ const styles = StyleSheet.create({
 
 export default function App() {
   const [weatherError, setWeatherError] = useState(false);
-  const [weatherData, setWeatherData] = useState();
+  const [weatherData, setWeatherData] = useState(null);
+  const [isFetchingWeather, setIsFetchingWeather] = useState(false);
 
   const getWeather = async () => {
     try {
       setWeatherData(null);
+      setIsFetchingWeather(true);
+
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${API_KEY}&units=metric&lang=es`
       );
+
       if (response.status === 200) {
         const payload = await response.json();
         setWeatherData(payload);
@@ -135,8 +139,11 @@ export default function App() {
       } else {
         setWeatherError(true);
       }
+
+      setIsFetchingWeather(false);
     } catch (error) {
       setWeatherError(true);
+      setIsFetchingWeather(false);
     }
   };
 
@@ -381,7 +388,10 @@ export default function App() {
       <ExpoStatusBar style="auto" />
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={!weatherData} onRefresh={getWeather} />
+          <RefreshControl
+            refreshing={isFetchingWeather}
+            onRefresh={getWeather}
+          />
         }
       >
         {renderWeather()}
